@@ -1,0 +1,68 @@
+{% extends 'layout.html' %}
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <div class="section-overline">History</div>
+        <h4 class="mt-2">Prediction timeline</h4>
+      </div>
+      <div class="d-flex gap-2">
+        <input id="historySearch" class="form-control" placeholder="Search predictions..." style="min-width:280px;">
+        <a href="{{ url_for('predict') }}" class="btn btn-cta">New prediction</a>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="floating-card p-4">
+          <div class="text-muted small">Total</div>
+          <div class="fs-3 fw-bold">{{ stats.total }}</div>
+          <div class="mt-3 text-muted small">Approved: {{ stats.approved }} · Rejected: {{ stats.rejected }}</div>
+        </div>
+      </div>
+
+      <div class="col-lg-8">
+        <div id="historyGrid">
+          {% for item in entries %}
+          <div class="floating-card mb-3 p-3 d-flex align-items-center justify-content-between" data-status="{{ item.status|lower }}">
+            <div>
+              <div class="small text-muted">{{ item.timestamp }}</div>
+              <div class="fw-semibold">{{ item.applicant }}</div>
+              <div class="text-muted small">Income: ₹{{ item.income }} · Loan: ₹{{ item.loan_amount }}k · Confidence: {{ item.confidence }}%</div>
+            </div>
+            <div class="text-end">
+              <div class="mb-2"><span class="badge {% if item.status=='Approved' %}bg-success text-white{% else %}bg-danger text-white{% endif %}">{{ item.status }}</span></div>
+              <div class="d-flex gap-2">
+                <button class="btn btn-outline-primary btn-sm" data-bs-toggle="collapse" data-bs-target="#details-{{ item.id }}">Details</button>
+                <form method="post" action="{{ url_for('delete_history', item_id=item.id) }}">
+                  <button class="btn btn-outline-danger btn-sm">Delete</button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="collapse" id="details-{{ item.id }}">
+            <div class="floating-card p-3 mb-3">
+              <pre class="mb-0 small">{{ item.details | tojson(indent=2) }}</pre>
+            </div>
+          </div>
+          {% else %}
+          <div class="floating-card p-5 text-center text-muted">No history yet. Create your first prediction.</div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // basic search filter
+  document.getElementById('historySearch').addEventListener('input', function(e){
+    const q = e.target.value.toLowerCase();
+    document.querySelectorAll('#historyGrid .floating-card.mb-3').forEach(card=>{
+      const text = card.innerText.toLowerCase(); card.style.display = text.includes(q)?'flex':'none';
+    });
+  });
+</script>
+{% endblock %}

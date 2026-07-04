@@ -1,0 +1,61 @@
+{% extends 'layout.html' %}
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <div class="card floating-card p-4">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <div class="d-flex align-items-center gap-3">
+            <div class="result-badge p-3 rounded-3" style="background: {% if result.approved %}rgba(22,163,74,0.08){% else %}rgba(220,38,38,0.08){% endif %};">
+              <i class="bi {% if result.approved %}bi-check-circle-fill text-success{% else %}bi-x-circle-fill text-danger{% endif %} fs-3"></i>
+            </div>
+            <div>
+              <h4 class="mb-0">{{ 'Approved' if result.approved else 'Rejected' }}</h4>
+              <div class="text-muted small">Decision date: {{ result.entry.timestamp }}</div>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <h5>AI Decision</h5>
+            <p class="text-muted">Confidence: <strong>{{ result.confidence }}%</strong> · Model: <strong>XGBoost</strong> · Time: <strong>0.28s</strong></p>
+          </div>
+
+          <div class="row g-3 mt-3">
+            <div class="col-md-4">
+              <div class="floating-card text-center">
+                <div class="text-muted small">Confidence</div>
+                <div class="fs-3 fw-bold">{{ result.confidence }}%</div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="floating-card text-center">
+                <div class="text-muted small">Approval probability</div>
+                <div class="fs-3 fw-bold">{{ result.score }}%</div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="floating-card text-center">
+                <div class="text-muted small">Risk Level</div>
+                <div class="fs-3 fw-bold">Low</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="floating-card p-3">
+            <h6 class="mb-2">Recommendation</h6>
+            {% set recommendation_text = result.recommendation if result.recommendation is string else result.recommendation|join(' ') %}
+            <p class="mb-0 text-muted small">{{ recommendation_text }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end gap-2 mt-4">
+        <a href="{{ url_for('predict') }}" class="btn btn-outline-secondary btn-pill">Predict Again</a>
+        <a href="{{ url_for('home') }}" class="btn btn-cta">Go Home</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

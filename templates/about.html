@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-7">
+        <div class="section-overline">About</div>
+        <h3 class="mt-2">A simple way to understand loan eligibility</h3>
+        <p class="text-muted mt-3">
+          Smart Lender is designed to help people and lending teams quickly assess whether a loan application looks promising.
+          Instead of making the process feel complicated, the project focuses on clarity, speed, and confidence.
+        </p>
+        <p class="text-muted mt-3">
+          The goal is to make loan review easier for both applicants and decision-makers. Users can enter basic borrower information,
+          receive an eligibility outcome, and review past decisions in a clean and professional experience.
+        </p>
+
+        <h5 class="mt-4">What this project does</h5>
+        <ul class="text-muted mt-3">
+          <li>Guides users through a structured loan assessment form</li>
+          <li>Provides a clear prediction for loan eligibility</li>
+          <li>Helps lenders review applicant details in a simple flow</li>
+          <li>Stores past results so decisions can be reviewed later</li>
+        </ul>
+      </div>
+      <div class="col-lg-5">
+        <img src="{{ url_for('static', filename='images/about-graphic.svg') }}" alt="About Smart Lender" class="img-fluid rounded-4 shadow-sm">
+      </div>
+    </div>
+
+    <div class="row g-4 mt-4">
+      <div class="col-md-6">
+        <div class="floating-card p-4 h-100">
+          <h5>Why it matters</h5>
+          <p class="text-muted small mb-0">
+            Loan decisions should be easier to understand and more transparent. This project brings that experience into a practical digital tool.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="floating-card p-4 h-100">
+          <h5>Who it is for</h5>
+          <p class="text-muted small mb-0">
+            It is built for students, learners, and anyone who wants to see how a lending support experience can be presented in a simple, modern way.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

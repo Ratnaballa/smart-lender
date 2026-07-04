@@ -1,0 +1,34 @@
+<header id="siteHeader" class="site-header position-fixed top-0 start-0 end-0 zindex-50">
+  <nav class="navbar navbar-expand-lg container align-items-center py-3">
+    <a class="d-flex align-items-center gap-3 brand-link" href="{{ url_for('home') }}">
+      <div class="brand-logo">
+        <svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="48" height="48" rx="12" fill="#0F172A"/>
+          <path d="M15 31L24 17L33 31H15Z" fill="#0F766E"/>
+        </svg>
+      </div>
+      <div class="brand-meta">
+        <div class="brand-title">Smart Lender</div>
+        <div class="brand-sub">AI Loan Intelligence</div>
+      </div>
+    </a>
+
+    <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNavbar">
+      <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item"><a class="nav-link {% if active_page == 'home' %}active{% endif %}" href="{{ url_for('home') }}">Home</a></li>
+        <li class="nav-item"><a class="nav-link {% if active_page == 'predict' %}active{% endif %}" href="{{ url_for('predict') }}">Predict</a></li>
+        <li class="nav-item"><a class="nav-link {% if active_page == 'history' %}active{% endif %}" href="{{ url_for('history') }}">History</a></li>
+        <li class="nav-item"><a class="nav-link {% if active_page == 'about' %}active{% endif %}" href="{{ url_for('about') }}">About</a></li>
+        <li class="nav-item"><a class="nav-link {% if active_page == 'contact' %}active{% endif %}" href="{{ url_for('contact') }}">Contact</a></li>
+      </ul>
+
+      <div class="ms-4">
+        <a href="{{ url_for('predict') }}" class="btn btn-cta">Start Prediction</a>
+      </div>
+    </div>
+  </nav>
+</header>
